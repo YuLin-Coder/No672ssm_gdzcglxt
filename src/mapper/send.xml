@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.SendDAO">
+  <resultMap type="send" id="sendMap">
+    <id property="sendid" column="sendid" />
+    <result property="applyxid" column="applyxid" />
+    <result property="deptid" column="deptid" />
+    <result property="employid" column="employid" />
+    <result property="equipmentname" column="equipmentname" />
+    <result property="num" column="num" />
+    <result property="addtime" column="addtime" />
+    <result property="memo" column="memo" />
+    <result property="ano" column="ano" />
+    <result property="deptname" column="deptname" />
+    <result property="employname" column="employname" />
+  </resultMap>
+  <!-- 插入语句 DAO通过id调用此配置 -->
+  <insert id="insertSend" parameterType="send">
+    insert into send(sendid , applyxid , deptid , employid , equipmentname , num , addtime , memo ) values(#{sendid} , #{applyxid} , #{deptid} , #{employid} ,
+    #{equipmentname} , #{num} , #{addtime} , #{memo} )
+  </insert>
+  <!-- 更新语句 DAO通过id调用此配置 -->
+  <update id="updateSend" parameterType="send">
+    update send set applyxid=#{applyxid} , deptid=#{deptid} , employid=#{employid} , equipmentname=#{equipmentname} , num=#{num} , addtime=#{addtime} , memo=#{memo}
+    where sendid=#{sendid}
+  </update>
+  <!-- 按主键删除 DAO通过id调用此配置 -->
+  <delete id="deleteSend" parameterType="String">
+    delete from send where sendid = #{sendid}
+  </delete>
+  <!-- 查询全部信息 DAO通过id调用此配置 -->
+  <select id="getAllSend" resultMap="sendMap">
+    select a.* , b.ano , c.deptname , d.employname from send a , applyx b , dept c , employ d where a.applyxid = b.applyxid and a.deptid = c.deptid and a.employid =
+    d.employid order by sendid desc
+  </select>
+
+  <!-- 按主键查询 DAO通过id调用此配置 -->
+  <select id="getSendById" parameterType="String" resultMap="sendMap">
+    select a.* , b.ano , c.deptname , d.employname from send a , applyx b , dept c , employ d where a.applyxid = b.applyxid and a.deptid = c.deptid and a.employid =
+    d.employid and sendid=#{sendid} order by sendid desc
+  </select>
+  <!-- 按条件精确查询 DAO通过id调用此配置 -->
+  <select id="getSendByCond" parameterType="send" resultMap="sendMap">
+    select a.* , b.ano , c.deptname , d.employname from send a , applyx b , dept c , employ d where a.applyxid = b.applyxid and a.deptid = c.deptid and
+    a.employid = d.employid
+    <if test="applyxid != null and '' != applyxid">
+      and a.applyxid = #{applyxid}
+    </if>
+    <if test="deptid != null and '' != deptid">
+      and a.deptid = #{deptid}
+    </if>
+    <if test="employid != null and '' != employid">
+      and a.employid = #{employid}
+    </if>
+    <if test="equipmentname != null and '' != equipmentname">
+      and a.equipmentname = #{equipmentname}
+    </if>
+    <if test="num != null and '' != num">
+      and a.num = #{num}
+    </if>
+    <if test="addtime != null and '' != addtime">
+      and a.addtime = #{addtime}
+    </if>
+    <if test="memo != null and '' != memo">
+      and a.memo = #{memo}
+    </if>
+  </select>
+  <!-- 按条件模糊查询 DAO通过id调用此配置 -->
+  <select id="getSendByLike" parameterType="send" resultMap="sendMap">
+    select a.* , b.ano , c.deptname , d.employname from send a , applyx b , dept c , employ d where a.applyxid = b.applyxid and a.deptid = c.deptid and
+    a.employid = d.employid
+    <if test="applyxid != null and '' != applyxid">
+      and b.ano like CONCAT('%', CONCAT(#{applyxid}, '%'))
+    </if>
+    <if test="deptid != null and '' != deptid">
+      and c.deptname like CONCAT('%', CONCAT(#{deptid}, '%'))
+    </if>
+    <if test="employid != null and '' != employid">
+      and d.employname like CONCAT('%', CONCAT(#{employid}, '%'))
+    </if>
+    <if test="equipmentname != null and '' != equipmentname">
+      and a.equipmentname like CONCAT('%', CONCAT(#{equipmentname}, '%'))
+    </if>
+    <if test="num != null and '' != num">
+      and a.num like CONCAT('%', CONCAT(#{num}, '%'))
+    </if>
+    <if test="addtime != null and '' != addtime">
+      and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+    </if>
+    <if test="memo != null and '' != memo">
+      and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+    </if>
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

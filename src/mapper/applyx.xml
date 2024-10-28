@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.ApplyxDAO">
+  <resultMap type="applyx" id="applyxMap">
+    <id property="applyxid" column="applyxid" />
+    <result property="ano" column="ano" />
+    <result property="employid" column="employid" />
+    <result property="deptid" column="deptid" />
+    <result property="cateid" column="cateid" />
+    <result property="equipmentname" column="equipmentname" />
+    <result property="reason" column="reason" />
+    <result property="num" column="num" />
+    <result property="addtime" column="addtime" />
+    <result property="status" column="status" />
+    <result property="memo" column="memo" />
+    <result property="employname" column="employname" />
+    <result property="deptname" column="deptname" />
+    <result property="catename" column="catename" />
+  </resultMap>
+  <!-- 插入语句 DAO通过id调用此配置 -->
+  <insert id="insertApplyx" parameterType="applyx">
+    insert into applyx(applyxid , ano , employid , deptid , cateid , equipmentname , reason , num , addtime , status , memo ) values(#{applyxid} , #{ano} , #{employid}
+    , #{deptid} , #{cateid} , #{equipmentname} , #{reason} , #{num} , #{addtime} , #{status} , #{memo} )
+  </insert>
+  <!-- 更新语句 DAO通过id调用此配置 -->
+  <update id="updateApplyx" parameterType="applyx">
+    update applyx set ano=#{ano} , employid=#{employid} , deptid=#{deptid} , cateid=#{cateid} , equipmentname=#{equipmentname} , reason=#{reason} , num=#{num} ,
+    addtime=#{addtime} , status=#{status} , memo=#{memo} where applyxid=#{applyxid}
+  </update>
+  <!-- 按主键删除 DAO通过id调用此配置 -->
+  <delete id="deleteApplyx" parameterType="String">
+    delete from applyx where applyxid = #{applyxid}
+  </delete>
+  <!-- 查询全部信息 DAO通过id调用此配置 -->
+  <select id="getAllApplyx" resultMap="applyxMap">
+    select a.* , b.employname , c.deptname , d.catename from applyx a , employ b , dept c , cate d where a.employid = b.employid and a.deptid = c.deptid and a.cateid =
+    d.cateid order by applyxid desc
+  </select>
+
+  <!-- 按主键查询 DAO通过id调用此配置 -->
+  <select id="getApplyxById" parameterType="String" resultMap="applyxMap">
+    select a.* , b.employname , c.deptname , d.catename from applyx a , employ b , dept c , cate d where a.employid = b.employid and a.deptid = c.deptid and a.cateid =
+    d.cateid and applyxid=#{applyxid} order by applyxid desc
+  </select>
+  <!-- 按条件精确查询 DAO通过id调用此配置 -->
+  <select id="getApplyxByCond" parameterType="applyx" resultMap="applyxMap">
+    select a.* , b.employname , c.deptname , d.catename from applyx a , employ b , dept c , cate d where a.employid = b.employid and a.deptid = c.deptid and
+    a.cateid = d.cateid
+    <if test="ano != null and '' != ano">
+      and a.ano = #{ano}
+    </if>
+    <if test="employid != null and '' != employid">
+      and a.employid = #{employid}
+    </if>
+    <if test="deptid != null and '' != deptid">
+      and a.deptid = #{deptid}
+    </if>
+    <if test="cateid != null and '' != cateid">
+      and a.cateid = #{cateid}
+    </if>
+    <if test="equipmentname != null and '' != equipmentname">
+      and a.equipmentname = #{equipmentname}
+    </if>
+    <if test="reason != null and '' != reason">
+      and a.reason = #{reason}
+    </if>
+    <if test="num != null and '' != num">
+      and a.num = #{num}
+    </if>
+    <if test="addtime != null and '' != addtime">
+      and a.addtime = #{addtime}
+    </if>
+    <if test="status != null and '' != status">
+      and a.status = #{status}
+    </if>
+    <if test="memo != null and '' != memo">
+      and a.memo = #{memo}
+    </if>
+  </select>
+  <!-- 按条件模糊查询 DAO通过id调用此配置 -->
+  <select id="getApplyxByLike" parameterType="applyx" resultMap="applyxMap">
+    select a.* , b.employname , c.deptname , d.catename from applyx a , employ b , dept c , cate d where a.employid = b.employid and a.deptid = c.deptid and
+    a.cateid = d.cateid
+    <if test="ano != null and '' != ano">
+      and a.ano like CONCAT('%', CONCAT(#{ano}, '%'))
+    </if>
+    <if test="employid != null and '' != employid">
+      and b.employname like CONCAT('%', CONCAT(#{employid}, '%'))
+    </if>
+    <if test="deptid != null and '' != deptid">
+      and c.deptname like CONCAT('%', CONCAT(#{deptid}, '%'))
+    </if>
+    <if test="cateid != null and '' != cateid">
+      and d.catename like CONCAT('%', CONCAT(#{cateid}, '%'))
+    </if>
+    <if test="equipmentname != null and '' != equipmentname">
+      and a.equipmentname like CONCAT('%', CONCAT(#{equipmentname}, '%'))
+    </if>
+    <if test="reason != null and '' != reason">
+      and a.reason like CONCAT('%', CONCAT(#{reason}, '%'))
+    </if>
+    <if test="num != null and '' != num">
+      and a.num like CONCAT('%', CONCAT(#{num}, '%'))
+    </if>
+    <if test="addtime != null and '' != addtime">
+      and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+    </if>
+    <if test="status != null and '' != status">
+      and a.status like CONCAT('%', CONCAT(#{status}, '%'))
+    </if>
+    <if test="memo != null and '' != memo">
+      and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+    </if>
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

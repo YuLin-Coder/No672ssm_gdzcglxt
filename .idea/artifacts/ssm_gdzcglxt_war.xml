@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ssm_gdzcglxt:war">
+    <output-path>$PROJECT_DIR$/classes/artifacts/ssm_gdzcglxt_war</output-path>
+    <root id="archive" name="ssm_gdzcglxt_war.war">
+      <element id="artifact" artifact-name="ssm_gdzcglxt:war exploded" />
+      <element id="dir-copy" path="$PROJECT_DIR$/WebContent" />
+    </root>
+  </artifact>
+</component>

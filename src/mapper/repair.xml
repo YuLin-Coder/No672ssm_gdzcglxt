@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.RepairDAO">
+  <resultMap type="repair" id="repairMap">
+    <id property="repairid" column="repairid" />
+    <result property="deptid" column="deptid" />
+    <result property="equipmentid" column="equipmentid" />
+    <result property="reason" column="reason" />
+    <result property="cost" column="cost" />
+    <result property="employid" column="employid" />
+    <result property="addtime" column="addtime" />
+    <result property="memo" column="memo" />
+    <result property="deptname" column="deptname" />
+    <result property="equipmentname" column="equipmentname" />
+    <result property="employname" column="employname" />
+  </resultMap>
+  <!-- 插入语句 DAO通过id调用此配置 -->
+  <insert id="insertRepair" parameterType="repair">
+    insert into repair(repairid , deptid , equipmentid , reason , cost , employid , addtime , memo ) values(#{repairid} , #{deptid} , #{equipmentid} , #{reason} ,
+    #{cost} , #{employid} , #{addtime} , #{memo} )
+  </insert>
+  <!-- 更新语句 DAO通过id调用此配置 -->
+  <update id="updateRepair" parameterType="repair">
+    update repair set deptid=#{deptid} , equipmentid=#{equipmentid} , reason=#{reason} , cost=#{cost} , employid=#{employid} , addtime=#{addtime} , memo=#{memo} where
+    repairid=#{repairid}
+  </update>
+  <!-- 按主键删除 DAO通过id调用此配置 -->
+  <delete id="deleteRepair" parameterType="String">
+    delete from repair where repairid = #{repairid}
+  </delete>
+  <!-- 查询全部信息 DAO通过id调用此配置 -->
+  <select id="getAllRepair" resultMap="repairMap">
+    select a.* , b.deptname , c.equipmentname , d.employname from repair a , dept b , equipment c , employ d where a.deptid = b.deptid and a.equipmentid = c.equipmentid
+    and a.employid = d.employid order by repairid desc
+  </select>
+
+  <!-- 按主键查询 DAO通过id调用此配置 -->
+  <select id="getRepairById" parameterType="String" resultMap="repairMap">
+    select a.* , b.deptname , c.equipmentname , d.employname from repair a , dept b , equipment c , employ d where a.deptid = b.deptid and a.equipmentid = c.equipmentid
+    and a.employid = d.employid and repairid=#{repairid} order by repairid desc
+  </select>
+  <!-- 按条件精确查询 DAO通过id调用此配置 -->
+  <select id="getRepairByCond" parameterType="repair" resultMap="repairMap">
+    select a.* , b.deptname , c.equipmentname , d.employname from repair a , dept b , equipment c , employ d where a.deptid = b.deptid and a.equipmentid =
+    c.equipmentid and a.employid = d.employid
+    <if test="deptid != null and '' != deptid">
+      and a.deptid = #{deptid}
+    </if>
+    <if test="equipmentid != null and '' != equipmentid">
+      and a.equipmentid = #{equipmentid}
+    </if>
+    <if test="reason != null and '' != reason">
+      and a.reason = #{reason}
+    </if>
+    <if test="cost != null and '' != cost">
+      and a.cost = #{cost}
+    </if>
+    <if test="employid != null and '' != employid">
+      and a.employid = #{employid}
+    </if>
+    <if test="addtime != null and '' != addtime">
+      and a.addtime = #{addtime}
+    </if>
+    <if test="memo != null and '' != memo">
+      and a.memo = #{memo}
+    </if>
+  </select>
+  <!-- 按条件模糊查询 DAO通过id调用此配置 -->
+  <select id="getRepairByLike" parameterType="repair" resultMap="repairMap">
+    select a.* , b.deptname , c.equipmentname , d.employname from repair a , dept b , equipment c , employ d where a.deptid = b.deptid and a.equipmentid =
+    c.equipmentid and a.employid = d.employid
+    <if test="deptid != null and '' != deptid">
+      and b.deptname like CONCAT('%', CONCAT(#{deptid}, '%'))
+    </if>
+    <if test="equipmentid != null and '' != equipmentid">
+      and c.equipmentname like CONCAT('%', CONCAT(#{equipmentid}, '%'))
+    </if>
+    <if test="reason != null and '' != reason">
+      and a.reason like CONCAT('%', CONCAT(#{reason}, '%'))
+    </if>
+    <if test="cost != null and '' != cost">
+      and a.cost like CONCAT('%', CONCAT(#{cost}, '%'))
+    </if>
+    <if test="employid != null and '' != employid">
+      and d.employname like CONCAT('%', CONCAT(#{employid}, '%'))
+    </if>
+    <if test="addtime != null and '' != addtime">
+      and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+    </if>
+    <if test="memo != null and '' != memo">
+      and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+    </if>
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

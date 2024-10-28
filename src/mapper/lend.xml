@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.LendDAO">
+  <resultMap type="lend" id="lendMap">
+    <id property="lendid" column="lendid" />
+    <result property="lno" column="lno" />
+    <result property="employid" column="employid" />
+    <result property="deptid" column="deptid" />
+    <result property="equipmentid" column="equipmentid" />
+    <result property="reason" column="reason" />
+    <result property="status" column="status" />
+    <result property="addtime" column="addtime" />
+    <result property="memo" column="memo" />
+    <result property="employname" column="employname" />
+    <result property="deptname" column="deptname" />
+    <result property="equipmentname" column="equipmentname" />
+  </resultMap>
+  <!-- 插入语句 DAO通过id调用此配置 -->
+  <insert id="insertLend" parameterType="lend">
+    insert into lend(lendid , lno , employid , deptid , equipmentid , reason , status , addtime , memo ) values(#{lendid} , #{lno} , #{employid} , #{deptid} ,
+    #{equipmentid} , #{reason} , #{status} , #{addtime} , #{memo} )
+  </insert>
+  <!-- 更新语句 DAO通过id调用此配置 -->
+  <update id="updateLend" parameterType="lend">
+    update lend set lno=#{lno} , employid=#{employid} , deptid=#{deptid} , equipmentid=#{equipmentid} , reason=#{reason} , status=#{status} , addtime=#{addtime} ,
+    memo=#{memo} where lendid=#{lendid}
+  </update>
+  <!-- 按主键删除 DAO通过id调用此配置 -->
+  <delete id="deleteLend" parameterType="String">
+    delete from lend where lendid = #{lendid}
+  </delete>
+  <!-- 查询全部信息 DAO通过id调用此配置 -->
+  <select id="getAllLend" resultMap="lendMap">
+    select a.* , b.employname , c.deptname , d.equipmentname from lend a , employ b , dept c , equipment d where a.employid = b.employid and a.deptid = c.deptid and
+    a.equipmentid = d.equipmentid order by lendid desc
+  </select>
+
+  <!-- 按主键查询 DAO通过id调用此配置 -->
+  <select id="getLendById" parameterType="String" resultMap="lendMap">
+    select a.* , b.employname , c.deptname , d.equipmentname from lend a , employ b , dept c , equipment d where a.employid = b.employid and a.deptid = c.deptid and
+    a.equipmentid = d.equipmentid and lendid=#{lendid} order by lendid desc
+  </select>
+  <!-- 按条件精确查询 DAO通过id调用此配置 -->
+  <select id="getLendByCond" parameterType="lend" resultMap="lendMap">
+    select a.* , b.employname , c.deptname , d.equipmentname from lend a , employ b , dept c , equipment d where a.employid = b.employid and a.deptid = c.deptid
+    and a.equipmentid = d.equipmentid
+    <if test="lno != null and '' != lno">
+      and a.lno = #{lno}
+    </if>
+    <if test="employid != null and '' != employid">
+      and a.employid = #{employid}
+    </if>
+    <if test="deptid != null and '' != deptid">
+      and a.deptid = #{deptid}
+    </if>
+    <if test="equipmentid != null and '' != equipmentid">
+      and a.equipmentid = #{equipmentid}
+    </if>
+    <if test="reason != null and '' != reason">
+      and a.reason = #{reason}
+    </if>
+    <if test="status != null and '' != status">
+      and a.status = #{status}
+    </if>
+    <if test="addtime != null and '' != addtime">
+      and a.addtime = #{addtime}
+    </if>
+    <if test="memo != null and '' != memo">
+      and a.memo = #{memo}
+    </if>
+  </select>
+  <!-- 按条件模糊查询 DAO通过id调用此配置 -->
+  <select id="getLendByLike" parameterType="lend" resultMap="lendMap">
+    select a.* , b.employname , c.deptname , d.equipmentname from lend a , employ b , dept c , equipment d where a.employid = b.employid and a.deptid = c.deptid
+    and a.equipmentid = d.equipmentid
+    <if test="lno != null and '' != lno">
+      and a.lno like CONCAT('%', CONCAT(#{lno}, '%'))
+    </if>
+    <if test="employid != null and '' != employid">
+      and b.employname like CONCAT('%', CONCAT(#{employid}, '%'))
+    </if>
+    <if test="deptid != null and '' != deptid">
+      and c.deptname like CONCAT('%', CONCAT(#{deptid}, '%'))
+    </if>
+    <if test="equipmentid != null and '' != equipmentid">
+      and d.equipmentname like CONCAT('%', CONCAT(#{equipmentid}, '%'))
+    </if>
+    <if test="reason != null and '' != reason">
+      and a.reason like CONCAT('%', CONCAT(#{reason}, '%'))
+    </if>
+    <if test="status != null and '' != status">
+      and a.status like CONCAT('%', CONCAT(#{status}, '%'))
+    </if>
+    <if test="addtime != null and '' != addtime">
+      and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+    </if>
+    <if test="memo != null and '' != memo">
+      and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+    </if>
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

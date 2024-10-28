@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.BackDAO">
+  <resultMap type="back" id="backMap">
+    <id property="backid" column="backid" />
+    <result property="lendid" column="lendid" />
+    <result property="deptid" column="deptid" />
+    <result property="equipmentid" column="equipmentid" />
+    <result property="employid" column="employid" />
+    <result property="addtime" column="addtime" />
+    <result property="memo" column="memo" />
+    <result property="lno" column="lno" />
+    <result property="deptname" column="deptname" />
+    <result property="equipmentname" column="equipmentname" />
+    <result property="employname" column="employname" />
+  </resultMap>
+  <!-- 插入语句 DAO通过id调用此配置 -->
+  <insert id="insertBack" parameterType="back">
+    insert into back(backid , lendid , deptid , equipmentid , employid , addtime , memo ) values(#{backid} , #{lendid} , #{deptid} , #{equipmentid} , #{employid} ,
+    #{addtime} , #{memo} )
+  </insert>
+  <!-- 更新语句 DAO通过id调用此配置 -->
+  <update id="updateBack" parameterType="back">
+    update back set lendid=#{lendid} , deptid=#{deptid} , equipmentid=#{equipmentid} , employid=#{employid} , addtime=#{addtime} , memo=#{memo} where backid=#{backid}
+  </update>
+  <!-- 按主键删除 DAO通过id调用此配置 -->
+  <delete id="deleteBack" parameterType="String">
+    delete from back where backid = #{backid}
+  </delete>
+  <!-- 查询全部信息 DAO通过id调用此配置 -->
+  <select id="getAllBack" resultMap="backMap">
+    select a.* , b.lno , c.deptname , d.equipmentname , e.employname from back a , lend b , dept c , equipment d , employ e where a.lendid = b.lendid and a.deptid =
+    c.deptid and a.equipmentid = d.equipmentid and a.employid = e.employid order by backid desc
+  </select>
+
+  <!-- 按主键查询 DAO通过id调用此配置 -->
+  <select id="getBackById" parameterType="String" resultMap="backMap">
+    select a.* , b.lno , c.deptname , d.equipmentname , e.employname from back a , lend b , dept c , equipment d , employ e where a.lendid = b.lendid and a.deptid =
+    c.deptid and a.equipmentid = d.equipmentid and a.employid = e.employid and backid=#{backid} order by backid desc
+  </select>
+  <!-- 按条件精确查询 DAO通过id调用此配置 -->
+  <select id="getBackByCond" parameterType="back" resultMap="backMap">
+    select a.* , b.lno , c.deptname , d.equipmentname , e.employname from back a , lend b , dept c , equipment d , employ e where a.lendid = b.lendid and
+    a.deptid = c.deptid and a.equipmentid = d.equipmentid and a.employid = e.employid
+    <if test="lendid != null and '' != lendid">
+      and a.lendid = #{lendid}
+    </if>
+    <if test="deptid != null and '' != deptid">
+      and a.deptid = #{deptid}
+    </if>
+    <if test="equipmentid != null and '' != equipmentid">
+      and a.equipmentid = #{equipmentid}
+    </if>
+    <if test="employid != null and '' != employid">
+      and a.employid = #{employid}
+    </if>
+    <if test="addtime != null and '' != addtime">
+      and a.addtime = #{addtime}
+    </if>
+    <if test="memo != null and '' != memo">
+      and a.memo = #{memo}
+    </if>
+  </select>
+  <!-- 按条件模糊查询 DAO通过id调用此配置 -->
+  <select id="getBackByLike" parameterType="back" resultMap="backMap">
+    select a.* , b.lno , c.deptname , d.equipmentname , e.employname from back a , lend b , dept c , equipment d , employ e where a.lendid = b.lendid and
+    a.deptid = c.deptid and a.equipmentid = d.equipmentid and a.employid = e.employid
+    <if test="lendid != null and '' != lendid">
+      and b.lno like CONCAT('%', CONCAT(#{lendid}, '%'))
+    </if>
+    <if test="deptid != null and '' != deptid">
+      and c.deptname like CONCAT('%', CONCAT(#{deptid}, '%'))
+    </if>
+    <if test="equipmentid != null and '' != equipmentid">
+      and d.equipmentname like CONCAT('%', CONCAT(#{equipmentid}, '%'))
+    </if>
+    <if test="employid != null and '' != employid">
+      and e.employname like CONCAT('%', CONCAT(#{employid}, '%'))
+    </if>
+    <if test="addtime != null and '' != addtime">
+      and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+    </if>
+    <if test="memo != null and '' != memo">
+      and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+    </if>
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

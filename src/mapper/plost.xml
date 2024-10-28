@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.PlostDAO">
+  <resultMap type="plost" id="plostMap">
+    <id property="plostid" column="plostid" />
+    <result property="pno" column="pno" />
+    <result property="deptid" column="deptid" />
+    <result property="equipmentid" column="equipmentid" />
+    <result property="reason" column="reason" />
+    <result property="lost" column="lost" />
+    <result property="employid" column="employid" />
+    <result property="addtime" column="addtime" />
+    <result property="memo" column="memo" />
+    <result property="deptname" column="deptname" />
+    <result property="equipmentname" column="equipmentname" />
+    <result property="employname" column="employname" />
+  </resultMap>
+  <!-- 插入语句 DAO通过id调用此配置 -->
+  <insert id="insertPlost" parameterType="plost">
+    insert into plost(plostid , pno , deptid , equipmentid , reason , lost , employid , addtime , memo ) values(#{plostid} , #{pno} , #{deptid} , #{equipmentid} ,
+    #{reason} , #{lost} , #{employid} , #{addtime} , #{memo} )
+  </insert>
+  <!-- 更新语句 DAO通过id调用此配置 -->
+  <update id="updatePlost" parameterType="plost">
+    update plost set pno=#{pno} , deptid=#{deptid} , equipmentid=#{equipmentid} , reason=#{reason} , lost=#{lost} , employid=#{employid} , addtime=#{addtime} ,
+    memo=#{memo} where plostid=#{plostid}
+  </update>
+  <!-- 按主键删除 DAO通过id调用此配置 -->
+  <delete id="deletePlost" parameterType="String">
+    delete from plost where plostid = #{plostid}
+  </delete>
+  <!-- 查询全部信息 DAO通过id调用此配置 -->
+  <select id="getAllPlost" resultMap="plostMap">
+    select a.* , b.deptname , c.equipmentname , d.employname from plost a , dept b , equipment c , employ d where a.deptid = b.deptid and a.equipmentid = c.equipmentid
+    and a.employid = d.employid order by plostid desc
+  </select>
+
+  <!-- 按主键查询 DAO通过id调用此配置 -->
+  <select id="getPlostById" parameterType="String" resultMap="plostMap">
+    select a.* , b.deptname , c.equipmentname , d.employname from plost a , dept b , equipment c , employ d where a.deptid = b.deptid and a.equipmentid = c.equipmentid
+    and a.employid = d.employid and plostid=#{plostid} order by plostid desc
+  </select>
+  <!-- 按条件精确查询 DAO通过id调用此配置 -->
+  <select id="getPlostByCond" parameterType="plost" resultMap="plostMap">
+    select a.* , b.deptname , c.equipmentname , d.employname from plost a , dept b , equipment c , employ d where a.deptid = b.deptid and a.equipmentid =
+    c.equipmentid and a.employid = d.employid
+    <if test="pno != null and '' != pno">
+      and a.pno = #{pno}
+    </if>
+    <if test="deptid != null and '' != deptid">
+      and a.deptid = #{deptid}
+    </if>
+    <if test="equipmentid != null and '' != equipmentid">
+      and a.equipmentid = #{equipmentid}
+    </if>
+    <if test="reason != null and '' != reason">
+      and a.reason = #{reason}
+    </if>
+    <if test="lost != null and '' != lost">
+      and a.lost = #{lost}
+    </if>
+    <if test="employid != null and '' != employid">
+      and a.employid = #{employid}
+    </if>
+    <if test="addtime != null and '' != addtime">
+      and a.addtime = #{addtime}
+    </if>
+    <if test="memo != null and '' != memo">
+      and a.memo = #{memo}
+    </if>
+  </select>
+  <!-- 按条件模糊查询 DAO通过id调用此配置 -->
+  <select id="getPlostByLike" parameterType="plost" resultMap="plostMap">
+    select a.* , b.deptname , c.equipmentname , d.employname from plost a , dept b , equipment c , employ d where a.deptid = b.deptid and a.equipmentid =
+    c.equipmentid and a.employid = d.employid
+    <if test="pno != null and '' != pno">
+      and a.pno like CONCAT('%', CONCAT(#{pno}, '%'))
+    </if>
+    <if test="deptid != null and '' != deptid">
+      and b.deptname like CONCAT('%', CONCAT(#{deptid}, '%'))
+    </if>
+    <if test="equipmentid != null and '' != equipmentid">
+      and c.equipmentname like CONCAT('%', CONCAT(#{equipmentid}, '%'))
+    </if>
+    <if test="reason != null and '' != reason">
+      and a.reason like CONCAT('%', CONCAT(#{reason}, '%'))
+    </if>
+    <if test="lost != null and '' != lost">
+      and a.lost like CONCAT('%', CONCAT(#{lost}, '%'))
+    </if>
+    <if test="employid != null and '' != employid">
+      and d.employname like CONCAT('%', CONCAT(#{employid}, '%'))
+    </if>
+    <if test="addtime != null and '' != addtime">
+      and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+    </if>
+    <if test="memo != null and '' != memo">
+      and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+    </if>
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

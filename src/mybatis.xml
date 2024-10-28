@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <typeAliases>
+    <typeAlias alias="admin" type="com.entity.Admin" />
+    <typeAlias alias="dept" type="com.entity.Dept" />
+    <typeAlias alias="employ" type="com.entity.Employ" />
+    <typeAlias alias="cate" type="com.entity.Cate" />
+    <typeAlias alias="applyx" type="com.entity.Applyx" />
+    <typeAlias alias="buy" type="com.entity.Buy" />
+    <typeAlias alias="equipment" type="com.entity.Equipment" />
+    <typeAlias alias="send" type="com.entity.Send" />
+    <typeAlias alias="repair" type="com.entity.Repair" />
+    <typeAlias alias="scarp" type="com.entity.Scarp" />
+    <typeAlias alias="lend" type="com.entity.Lend" />
+    <typeAlias alias="back" type="com.entity.Back" />
+    <typeAlias alias="pwin" type="com.entity.Pwin" />
+    <typeAlias alias="plost" type="com.entity.Plost" />
+  </typeAliases>
+  <mappers>
+    <mapper resource="mapper/admin.xml" />
+    <mapper resource="mapper/dept.xml" />
+    <mapper resource="mapper/employ.xml" />
+    <mapper resource="mapper/cate.xml" />
+    <mapper resource="mapper/applyx.xml" />
+    <mapper resource="mapper/buy.xml" />
+    <mapper resource="mapper/equipment.xml" />
+    <mapper resource="mapper/send.xml" />
+    <mapper resource="mapper/repair.xml" />
+    <mapper resource="mapper/scarp.xml" />
+    <mapper resource="mapper/lend.xml" />
+    <mapper resource="mapper/back.xml" />
+    <mapper resource="mapper/pwin.xml" />
+    <mapper resource="mapper/plost.xml" />
+  </mappers>
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
